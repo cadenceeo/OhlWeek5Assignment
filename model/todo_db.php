@@ -1,13 +1,13 @@
 <?php
 
-function insert_newTask($todoitems, $itemNum, $title, $description){
+function insert_newTask( $itemNum, $title, $description){
     global $db;
     $count = 0;
     $query = 'INSERT INTO todoitems
                 (ItemNum, Title, Description)
                 VALUES ( :itemNum, :title, :description)';
     $statement = $db->prepare($query);
-    $statement->bindValue(':todoitems', $todoitems);
+  //  $statement->bindValue(':todoitems', $todoitems);
     $statement->bindValue(':itemNum', $itemNum);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':description', $description);

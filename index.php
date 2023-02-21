@@ -25,7 +25,7 @@ if(!$todoitems){
 
 switch($action){
     case 'insert':
-        if($todoitems && $itemNum && $title && $description){
+        if( $itemNum && $title && $description){
             $count = insert_newTask($todoitems, $itemNum, $title, $description);
             header("location: .?action=select&todoitems={$todoitems}&created={$count}");
         }else{
@@ -40,7 +40,7 @@ switch($action){
         }
         break;
     default:
-    include("view/update_delete_form.php");
+    include("view/create_read_form.php");
 }
 
 ?>
