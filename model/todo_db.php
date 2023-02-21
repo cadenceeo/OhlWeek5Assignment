@@ -1,16 +1,5 @@
 <?php
 
- function show_todoitems($todoitems){
-    global $db;
-    $query = 'SELECT * FROM todoitems';
-    $statement = $db->prepare($query);
-    $statement->bindValue(":todoitems", $todoitems);
-    $statement->execute();
-    $results = $statement->fetchAll();
-    $statement->closeCursor();      
-    return $results;     
-} 
-
 function insert_newTask($todoitems, $itemNum, $title, $description){
     global $db;
     $count = 0;
@@ -28,7 +17,6 @@ function insert_newTask($todoitems, $itemNum, $title, $description){
     $statement->closeCursor();
     return $count;
 }
-
 
 function delete_newTask($itemNum){
     global $db;

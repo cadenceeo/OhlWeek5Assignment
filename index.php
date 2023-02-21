@@ -24,15 +24,6 @@ if(!$todoitems){
 //$results = show_todoitems($todoitems);
 
 switch($action){
-    case 'select':
-        if($todoitems){
-            $reults = show_todoitems($todoitems);
-            include('view/update_delete_form.php');
-        }else{
-            $error_message = "invalid city data. Check all fields";
-            include('view/error.php');
-        }
-        break;
     case 'insert':
         if($todoitems && $itemNum && $title && $description){
             $count = insert_newTask($todoitems, $itemNum, $title, $description);
