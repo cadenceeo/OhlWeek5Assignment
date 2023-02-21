@@ -2,8 +2,7 @@
 
  function show_todoitems($todoitems){
     global $db;
-    $query = 'SELECT * FROM todoitems
-                ORDER BY Population DESC';
+    $query = 'SELECT * FROM todoitems';
     $statement = $db->prepare($query);
     $statement->bindValue(":todoitems", $todoitems);
     $statement->execute();
@@ -17,7 +16,7 @@ function insert_newTask($todoitems, $itemNum, $title, $description){
     $count = 0;
     $query = 'INSERT INTO todoitems
                 (ItemNum, Title, Description)
-                VALUES (:todoitems, :itemNum, :title, :description)';
+                VALUES ( :itemNum, :title, :description)';
     $statement = $db->prepare($query);
     $statement->bindValue(':todoitems', $todoitems);
     $statement->bindValue(':itemNum', $itemNum);
