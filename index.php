@@ -1,9 +1,10 @@
 <?php
 require('model/database.php');
 require('model/todo_db.php');
+require('model/description_db.php');
 
 // POST Data
-$newTask = filter_input(INPUT_POST, "newtask", FILTER_UNSAFE_RAW);
+$newTask = filter_input(INPUT_POST, "newtask", FILTER_VALIDATE_INT);
 $title = filter_input(INPUT_POST, "title", FILTER_UNSAFE_RAW);
 $description = filter_input(INPUT_POST, "description", FILTER_UNSAFE_RAW);
 
@@ -16,30 +17,29 @@ if(!$action){
 }
 
 // GET Data
-$todoitems = filter_input(INPUT_POST, "todoitems", FILTER_UNSAFE_RAW);
+$todoitems = filter_input(INPUT_POST, "todoitems", FILTER_VALIDATE_INT);
 if(!$todoitems){
-    $todoitems = filter_input(INPUT_GET, "todoitems", FILTER_UNSAFE_RAW);
+    $todoitems = filter_input(INPUT_GET, "todoitems", FILTER_VALIDATE_INT);
 }
 
-//$results = show_todoitems($todoitems);
 
 switch($action){
-    case 'insert':
-        if( $itemNum && $title && $description){
-            $count = insert_newTask($todoitems, $itemNum, $title, $description);
-            header("location: .?action=select&todoitems={$todoitems}&created={$count}");
+    case 'list_todoitems':
+        $todoitems = get_tasks();
+        include('view/create_read_form.php');
+        break;
+    case 'add_description':
+        if($title && $description){
+            add_task($title, $description);
+            header("Location: .?action=$title");
         }else{
             $error_message = "invalid task data. Check all fields";
             include('view/error.php');
-        }
-        break;
-    case 'delete':
-        if($itemNum){
-            $count = delete_newTask($itemNum);
-            header("Location: .?deleted={$count}");
+            exit();
         }
         break;
     default:
+    $todoitems = get_tasks();
     include("view/create_read_form.php");
 }
 

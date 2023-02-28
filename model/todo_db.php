@@ -1,21 +1,24 @@
 <?php
 
-function insert_newTask( $itemNum, $title, $description){
+function add_task($title, $description)
+{
     global $db;
-    $count = 0;
-    $query = 'INSERT INTO todoitems
-                (ItemNum, Title, Description)
-                VALUES ( :itemNum, :title, :description)';
+    $query = 'INSERT INTO todoitems ( title, description ) VALUES (:title, :description)';
     $statement = $db->prepare($query);
-  //  $statement->bindValue(':todoitems', $todoitems);
-    $statement->bindValue(':itemNum', $itemNum);
     $statement->bindValue(':title', $title);
     $statement->bindValue(':description', $description);
-    if($statement->execute()){
-        $count = $statement->rowCount();
-    }
+    $statement->execute();
     $statement->closeCursor();
-    return $count;
+}
+
+function get_tasks(){
+    global $db;
+    $query = 'SELECT * FROM todoitems ORDER BY itemNum';
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $todoitems = $statement->fetchAll();
+    $statement->closeCursor();
+    return $todoitems;
 }
 
 function delete_newTask($itemNum){
