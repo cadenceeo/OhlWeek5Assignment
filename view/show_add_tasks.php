@@ -27,10 +27,16 @@
         </header>
         <table class="table table-striped">
             <?php foreach ($todoitems as $todoitem) : ?>
-                <div class="list__row">
-                        <p class="bold"><?= $todoitem['Title'] ?></p>
-                        <p class="bold"><?= $todoitem['Description'] ?></p>
+                <div class="row" style="border:groove;">
+                    <label>Title </label>
+                    <div class="column" >
+                        <?= $todoitem['Title'] ?>
                     </div>
+                    <label>Description </label>
+                    <div class="column">
+                        <?= $todoitem['Description'] ?>
+                    </div>
+                </div>
                     <div class="delete_task">
                         <form action="." method="post">
                             <input type="hidden" name="action" value="delete_task">
