@@ -47,11 +47,10 @@ switch($action){
                 include('view/error.php');
                 exit();
             }
-            header("Location: .?action=list_todoitems");
+            header("Location: .?action=$list_todoitems");
         }
         break;
     default:
-    $title = get_task_description($todoitems);
     $todoitems = get_tasks();
     include("view/show_add_tasks.php");
 }
