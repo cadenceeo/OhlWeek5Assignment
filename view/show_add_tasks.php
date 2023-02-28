@@ -40,7 +40,7 @@
                     <div class="delete_task">
                         <form action="." method="post">
                             <input type="hidden" name="action" value="delete_task">
-                            <input type="hidden" name="title" value="<?= $count['title'] ?>">
+                            <input type="hidden" name="title" value="<?= $todoitem['Title'] ?>">
                             <button class="remove-button">X</button>
                         </form>
                     </div>
