@@ -1,7 +1,6 @@
-<?php include('header.php')?>
+<?php include('view/header.php')?>
 <h2>Error</h2>
 <br>
 <p><?php echo $error_message ?></p>
 <br>
-<p><a href= "."> Back to request form</p>
-<?php include('footer.php')?>
+<?php include('view/footer.php')?>
