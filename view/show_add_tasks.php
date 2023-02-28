@@ -26,10 +26,10 @@
             <h1>Current Todos</h1>
         </header>
         <table class="table table-striped">
-            <?php foreach ($todoitems as $count) : ?>
+            <?php foreach ($todoitems as $todoitem) : ?>
                 <div class="list__row">
-                    <div class="list__item">
-                        <p class="bold"><?= $count['Title, Description'] ?></p>
+                        <p class="bold"><?= $todoitem['Title'] ?></p>
+                        <p class="bold"><?= $todoitem['Description'] ?></p>
                     </div>
                     <div class="delete_task">
                         <form action="." method="post">
