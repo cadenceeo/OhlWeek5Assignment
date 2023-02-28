@@ -1,19 +1,8 @@
 <?php
 
-function add_task($title, $description)
-{
-    global $db;
-    $query = 'INSERT INTO todoitems ( title, description ) VALUES (:title, :description)';
-    $statement = $db->prepare($query);
-    $statement->bindValue(':title', $title);
-    $statement->bindValue(':description', $description);
-    $statement->execute();
-    $statement->closeCursor();
-}
-
 function get_tasks(){
     global $db;
-    $query = 'SELECT * FROM todoitems ORDER BY itemNum';
+    $query = 'SELECT * FROM todoitems ';
     $statement = $db->prepare($query);
     $statement->execute();
     $todoitems = $statement->fetchAll();
@@ -21,20 +10,42 @@ function get_tasks(){
     return $todoitems;
 }
 
-function delete_newTask($itemNum){
-    global $db;
-    $count = 0;
-    $query = 'DELETE FROM todoitems
-                WHERE ItemNum = :itemNum';
-    $statement = $db->prepare($query);
-    $statement->bindValue(":itemNum", $itemNum);
-    $success = $statement->execute();
-    $statement->closeCursor();
-    if($statement->execute()){
-        $count = $statement->rowCount();
+function get_task_description($title)
+{
+    if (!$title) {
+        return "All Courses";
     }
+    global $db;
+    $query = 'SELECT * FROM todoitems WHERE Description = :description';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->execute();
+    $todoitem = $statement->fetch();
     $statement->closeCursor();
-    return $count;
+    $description = $todoitem['Description'];
+    return $description;
+}
+
+function add_task($title, $description)
+{
+    global $db;
+    $query = 'INSERT INTO todoitems ( Title, Description ) VALUES (:title, :description)';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->bindValue(':description', $description);
+    $statement->execute();
+    $statement->closeCursor();
+}
+
+
+function delete_task($title)
+{
+    global $db;
+    $query = 'DELETE FROM todoitems where title = :title';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':title', $title);
+    $statement->execute();
+    $statement->closeCursor();
 }
 
 ?>

@@ -28,17 +28,30 @@ switch($action){
         $todoitems = get_tasks();
         include('view/show_add_tasks.php');
         break;
-    case 'add_description':
+    case 'add_task':
         if($title && $description){
             add_task($title, $description);
-            header("Location: .?action=$title");
+            header("Location: .?action=$list_todoitems");
         }else{
-            $error_message = "invalid task data. Check all fields";
-            include('view/error.php');
+            $error = "Invalid Task data .Check all felids and try again";
+            include("view/error.php");
             exit();
         }
         break;
+    case "delete_task":
+        if ($title) {
+            try {
+                delete_task($title);
+            } catch (PDOException $e) {
+                $error = "You cannot delete a course if assignments exists in the course";
+                include('view/error.php');
+                exit();
+            }
+            header("Location: .?action=list_todoitems");
+        }
+        break;
     default:
+    $title = get_task_description($todoitems);
     $todoitems = get_tasks();
     include("view/show_add_tasks.php");
 }
